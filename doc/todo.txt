@@ -1,0 +1,4 @@
+ordem;tarefa;responsavel;status
+1;definir os layouts das tabelas;rafael;pendente
+2; scripts para baixar pdfs, converter e filtar em txt/;julio;pendente
+3;definir as camadas e estilos no QGIS ou Postgis; rafael;pendente

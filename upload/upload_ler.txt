@@ -1,0 +1,2 @@
+#sempre colocar data no material $(date +%F)
+teste no servidor  http://cartognu.org/q20200331  q20200331.tar.gz

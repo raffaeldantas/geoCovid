@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/contorno_pr_0.js"></script>
+        <script src="data/sedes_municipais_pr_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-26.6306250291,-54.7795954478],[-22.3364208171,-48.2369018759]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+        }
+        function pop_contorno_pr_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? Autolinker.link(String(feature.properties['ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CD_GEOCODM'] !== null ? Autolinker.link(String(feature.properties['CD_GEOCODM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NM_MUNICIP'] !== null ? Autolinker.link(String(feature.properties['NM_MUNICIP'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_contorno_pr_0_0() {
+            return {
+                pane: 'pane_contorno_pr_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(174,181,243,1.0)',
+            }
+        }
+        map.createPane('pane_contorno_pr_0');
+        map.getPane('pane_contorno_pr_0').style.zIndex = 400;
+        map.getPane('pane_contorno_pr_0').style['mix-blend-mode'] = 'normal';
+        var layer_contorno_pr_0 = new L.geoJson(json_contorno_pr_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_contorno_pr_0',
+            onEachFeature: pop_contorno_pr_0,
+            style: style_contorno_pr_0_0,
+        });
+        bounds_group.addLayer(layer_contorno_pr_0);
+        map.addLayer(layer_contorno_pr_0);
+        function pop_sedes_municipais_pr_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? Autolinker.link(String(feature.properties['NAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LAYER'] !== null ? Autolinker.link(String(feature.properties['LAYER'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LABEL'] !== null ? Autolinker.link(String(feature.properties['LABEL'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['codmun1'] !== null ? Autolinker.link(String(feature.properties['codmun1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['codmun2'] !== null ? Autolinker.link(String(feature.properties['codmun2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CONFIRMADO'] !== null ? Autolinker.link(String(feature.properties['CONFIRMADO'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_sedes_municipais_pr_1_0() {
+            return {
+                pane: 'pane_sedes_municipais_pr_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(85,78,134,1.0)',
+            }
+        }
+        map.createPane('pane_sedes_municipais_pr_1');
+        map.getPane('pane_sedes_municipais_pr_1').style.zIndex = 401;
+        map.getPane('pane_sedes_municipais_pr_1').style['mix-blend-mode'] = 'normal';
+        var layer_sedes_municipais_pr_1 = new L.geoJson(json_sedes_municipais_pr_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_sedes_municipais_pr_1',
+            onEachFeature: pop_sedes_municipais_pr_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_sedes_municipais_pr_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_sedes_municipais_pr_1);
+        map.addLayer(layer_sedes_municipais_pr_1);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/sedes_municipais_pr_1.png" /> sedes_municipais_pr': layer_sedes_municipais_pr_1,'<img src="legend/contorno_pr_0.png" /> contorno_pr': layer_contorno_pr_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
