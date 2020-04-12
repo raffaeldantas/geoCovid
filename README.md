@@ -7,7 +7,7 @@ Acesso
 O acesso ao portal pode ser feito provisoriamente através do endereço:
 
 
-corona.contratempo.info
+https://corona.contratempo.info
 
 Outros testes e dados estão sendo disponibilizados através de:
 
