@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/pr_contorno_0.js"></script>
+        <script src="data/casos_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> Colaboradores:<a href="https://github.com/raffaeldantas/geoCovid/">Dantas & Menezes</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_pr_contorno_0(feature, layer) {
+            var popupContent = '<table>\
+                     <tr>\
+                        <td colspan="2">' + (feature.properties['nm_estado'] !== null ? Autolinker.link(String(feature.properties['nm_estado'])) : '') + '</td>\
+                    </tr>\
+                             </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_pr_contorno_0_0() {
+            return {
+                pane: 'pane_pr_contorno_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.141176470588)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(68,90,128,0.141176470588)',
+            }
+        }
+        map.createPane('pane_pr_contorno_0');
+        map.getPane('pane_pr_contorno_0').style.zIndex = 400;
+        map.getPane('pane_pr_contorno_0').style['mix-blend-mode'] = 'normal';
+        var layer_pr_contorno_0 = new L.geoJson(json_pr_contorno_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_pr_contorno_0',
+            onEachFeature: pop_pr_contorno_0,
+            style: style_pr_contorno_0_0,
+        });
+        bounds_group.addLayer(layer_pr_contorno_0);
+        map.addLayer(layer_pr_contorno_0);
+        function pop_casos_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">municipio</th>\
+                        <td>' + (feature.properties['municipio'] !== null ? Autolinker.link(String(feature.properties['municipio'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">cdibge</th>\
+                        <td>' + (feature.properties['cdibge'] !== null ? Autolinker.link(String(feature.properties['cdibge'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>confirmad</strong><br />' + (feature.properties['confirmad'] !== null ? Autolinker.link(String(feature.properties['confirmad'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">obitos</th>\
+                        <td>' + (feature.properties['obitos'] !== null ? Autolinker.link(String(feature.properties['obitos'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">datadados</th>\
+                        <td>' + (feature.properties['datadados'] !== null ? Autolinker.link(String(feature.properties['datadados'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_casos_1_0(feature) {
+            if (feature.properties['confirmad'] >= 1.000000 && feature.properties['confirmad'] <= 2.000000 ) {
+                return {
+                pane: 'pane_casos_1',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,235,0.5)',
+            }
+            }
+            if (feature.properties['confirmad'] >= 2.000000 && feature.properties['confirmad'] <= 10.000000 ) {
+                return {
+                pane: 'pane_casos_1',
+                radius: 10.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,210,166,0.5)',
+            }
+            }
+            if (feature.properties['confirmad'] >= 10.000000 && feature.properties['confirmad'] <= 50.000000 ) {
+                return {
+                pane: 'pane_casos_1',
+                radius: 14.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,146,67,0.5)',
+            }
+            }
+            if (feature.properties['confirmad'] >= 50.000000 && feature.properties['confirmad'] <= 100.000000 ) {
+                return {
+                pane: 'pane_casos_1',
+                radius: 24.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(223,79,5,0.5)',
+            }
+            }
+            if (feature.properties['confirmad'] >= 100.000000 && feature.properties['confirmad'] <= 500.000000 ) {
+                return {
+                pane: 'pane_casos_1',
+                radius: 50.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(127,39,4,0.5)',
+            }
+            }
+        }
+        map.createPane('pane_casos_1');
+        map.getPane('pane_casos_1').style.zIndex = 401;
+        map.getPane('pane_casos_1').style['mix-blend-mode'] = 'normal';
+        var layer_casos_1 = new L.geoJson(json_casos_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_casos_1',
+            onEachFeature: pop_casos_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_casos_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_casos_1);
+        map.addLayer(layer_casos_1);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'casos<br /><table><tr><td style="text-align: center;"><img src="legend/casos_1_12casos0.png" /></td><td>1 à 2 casos</td></tr><tr><td style="text-align: center;"><img src="legend/casos_1_210casos1.png" /></td><td>2 à 10 casos</td></tr><tr><td style="text-align: center;"><img src="legend/casos_1_1050casos2.png" /></td><td>10 à 50 casos</td></tr><tr><td style="text-align: center;"><img src="legend/casos_1_50100casos3.png" /></td><td>50 à 100 casos</td></tr><tr><td style="text-align: center;"><img src="legend/casos_1_Acimade100casos4.png" /></td><td>Acima de 100 casos</td></tr></table>': layer_casos_1,'<img src="legend/pr_contorno_0.png" /> pr_contorno': layer_pr_contorno_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
